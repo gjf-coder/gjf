@@ -1,0 +1,89 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd 
+       http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd">
+
+
+
+
+	<!-- 配置扫描controller包 -->
+	<context:component-scan
+		base-package="org.yufan.admin.controller" />
+
+	<!-- 配置注解驱动 -->
+	<mvc:annotation-driven  conversion-service="conversionService"/>
+
+	<!-- 配置拦截器 -->
+<!--	<mvc:interceptors>-->
+<!--		<mvc:interceptor>-->
+<!--			<mvc:mapping path="/item/**" />-->
+<!--			<bean class="org.yufan.interceptor.MyInterceptor"/>-->
+<!--		</mvc:interceptor>-->
+<!--	</mvc:interceptors>-->
+
+	<!-- 配置处理器映射器 -->
+
+<!--	<bean-->
+<!--		class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping" />-->
+
+	<!-- 配置处理器适配器 -->
+
+<!--	<bean-->
+<!--		class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">-->
+<!--		<property name="webBindingInitializer"-->
+<!--			ref="webBindingInitializer" />-->
+<!--		<property name="messageConverters">-->
+<!--			<list>-->
+<!--				<bean-->
+<!--					class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter"></bean>-->
+<!--			</list>-->
+<!--		</property>-->
+<!--	</bean>-->
+
+<!--	<bean id="webBindingInitializer"-->
+<!--		class="org.springframework.web.bind.support.ConfigurableWebBindingInitializer">-->
+<!--		<property name="conversionService" ref="conversionService" />-->
+<!--	</bean>-->
+
+
+
+
+
+	<!-- 转换器配置 -->
+	<bean id="conversionService"
+		class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
+		<property name="converters">
+			<set>
+				<bean class="org.yufan.core.converter.DateConverter" />
+			</set>
+		</property>
+	</bean>
+
+	<!-- 配置异常处理器 -->
+	<bean class="org.yufan.core.exception.MyHandlerExceptionResolver"></bean>
+
+
+
+
+	<!-- 配置上传文件的解析器 id必须设置为 multipartResolver -->
+<!--	<bean id="multipartResolver"-->
+<!--		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">-->
+<!--		<property name="maxUploadSize" value="5242880" />-->
+<!--	</bean>-->
+
+
+	<!-- 配置视图解析器 -->
+	<bean
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<!-- 配置逻辑视图的前缀 -->
+		<property name="prefix" value="/WEB-INF/views/" />
+		<!-- 配置逻辑视图的后缀 -->
+		<property name="suffix" value=".jsp" />
+	</bean>
+
+
+</beans>
